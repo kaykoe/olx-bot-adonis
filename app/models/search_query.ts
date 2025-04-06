@@ -7,6 +7,9 @@ export default class SearchQuery extends BaseModel {
   declare id: number;
 
   @column()
+  declare name: string;
+
+  @column()
   declare priceMin: number;
 
   @column()
