@@ -13,3 +13,5 @@ router.get("/", async () => {
     hello: "world",
   };
 });
+const SearchController = () => import("#controllers/search_queries_controller");
+router.get("/search", [SearchController, "store"]);
