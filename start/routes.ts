@@ -14,4 +14,4 @@ router.get("/", async () => {
   };
 });
 const SearchController = () => import("#controllers/search_queries_controller");
-router.get("/search", [SearchController, "store"]);
+router.post("/search", [SearchController, "store"]);
