@@ -16,6 +16,18 @@ export default class SearchQuery extends BaseModel {
   declare priceMax: number;
 
   @column()
+  declare roomsMin: number;
+
+  @column()
+  declare roomsMax: number;
+
+  @column()
+  declare sizeMin: number;
+
+  @column()
+  declare sizeMax: number;
+
+  @column()
   declare locationId: number;
 
   @column.dateTime()
