@@ -10,8 +10,7 @@ export default class SearchQueriesController {
   /**
    * Display a list of resource
    */
-  // async index({}: HttpContext) {}
-
+  async index({ params }: HttpContext) {}
   /**
    * Display form to create a new record
    */
@@ -30,7 +29,9 @@ export default class SearchQueriesController {
   /**
    * Show individual record
    */
-  // async show({ params }: HttpContext) {}
+  async show({ params }: HttpContext) {
+    return await SearchQuery.findOrFail(params.id);
+  }
 
   /**
    * Edit individual record
