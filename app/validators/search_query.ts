@@ -50,4 +50,25 @@ export const updateSearchQueryValidator = vine.compile(
     roomsMin: vine.number().positive().optional(),
     roomsMax: vine.number().positive().optional().use(maxRule()),
   }),
+)
+
+export const indexSearchQueryValidator = vine.compile(
+  vine.object({
+    page: vine
+      .number()
+      .positive()
+      .parse((value) => {
+        const page = vine.helpers.asNumber(value);
+        return Number.isNaN(page) ? 1 : page;
+      }),
+    limit: vine
+      .number()
+      .positive()
+      .max(50)
+      .parse((value) => {
+        const limit = vine.helpers.asNumber(value);
+        return Number.isNaN(limit) ? 10 : limit;
+      }),
+    name: vine.string().trim().optional(),
+  }),
 );
