@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
 
-      table.string("name");
+      table.string("name").index();
 
       table.float("price_min").unsigned();
       table.float("price_max").unsigned();
