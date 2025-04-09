@@ -20,6 +20,6 @@ router
     router
       .resource("search-queries", SearchQueriesController)
       .apiOnly()
-      .only(["store", "destroy", "update"]);
+      .only(["store", "destroy", "update", "show"]);
   })
   .prefix("/api/v1");
