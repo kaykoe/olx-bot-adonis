@@ -4,13 +4,25 @@ import SearchQuery from "#models/search_query";
 import {
   createSearchQueryValidator,
   updateSearchQueryValidator,
+  indexSearchQueryValidator,
 } from "#validators/search_query";
 
 export default class SearchQueriesController {
   /**
    * Display a list of resource
    */
-  async index({ params }: HttpContext) {}
+  async index({ request }: HttpContext) {
+    const queryParams = await indexSearchQueryValidator.validate(request.qs());
+    const searchQueries = await SearchQuery.query()
+      .if(queryParams.name, (query) =>
+        query.whereILike("name", `%${queryParams.name}%`),
+      )
+      .orderBy("id", "desc")
+      .paginate(queryParams.page, queryParams.limit);
+
+    searchQueries.baseUrl(request.completeUrl());
+    return searchQueries.serialize();
+  }
   /**
    * Display form to create a new record
    */
