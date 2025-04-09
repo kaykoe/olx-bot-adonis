@@ -13,5 +13,13 @@ router.get("/", async () => {
     hello: "world",
   };
 });
-const SearchController = () => import("#controllers/search_queries_controller");
-router.post("/queries", [SearchController, "store"]);
+const SearchQueriesController = () =>
+  import("#controllers/search_queries_controller");
+router
+  .group(() => {
+    router
+      .resource("search-queries", SearchQueriesController)
+      .apiOnly()
+      .only(["store"]);
+  })
+  .prefix("/api/v1");
