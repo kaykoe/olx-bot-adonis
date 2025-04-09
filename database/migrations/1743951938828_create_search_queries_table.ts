@@ -11,6 +11,11 @@ export default class extends BaseSchema {
 
       table.float("price_min");
       table.float("price_max");
+      table.float("size_min");
+      table.float("size_max");
+      table.float("rooms_min");
+      table.float("rooms_max");
+
       table.integer("location_id");
 
       table.timestamp("refreshed_at");
