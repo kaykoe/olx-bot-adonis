@@ -9,12 +9,12 @@ export default class extends BaseSchema {
 
       table.string("name");
 
-      table.float("price_min");
-      table.float("price_max");
-      table.float("size_min");
-      table.float("size_max");
-      table.float("rooms_min");
-      table.float("rooms_max");
+      table.float("price_min").unsigned();
+      table.float("price_max").unsigned();
+      table.float("size_min").unsigned();
+      table.float("size_max").unsigned();
+      table.float("rooms_min").unsigned();
+      table.float("rooms_max").unsigned();
 
       table.integer("location_id");
 
