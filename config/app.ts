@@ -1,5 +1,3 @@
-import vine from "@vinejs/vine";
-
 import { Secret } from "@adonisjs/core/helpers";
 import { defineConfig } from "@adonisjs/core/http";
 import app from "@adonisjs/core/services/app";
@@ -14,11 +12,6 @@ import env from "#start/env";
  * changed. Therefore it is recommended to keep the app key secure.
  */
 export const appKey = new Secret(env.get("APP_KEY"));
-
-/**
- * Makes sure vine converts empty strings to null
- */
-vine.convertEmptyStringsToNull = true;
 
 /**
  * The configuration settings used by the HTTP server
