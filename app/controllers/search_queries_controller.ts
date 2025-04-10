@@ -12,6 +12,7 @@ export default class SearchQueriesController {
   /**
    * Display form to create a new record
    */
+
   // async create({}: HttpContext) {}
 
   /**
@@ -36,10 +37,15 @@ export default class SearchQueriesController {
   /**
    * Handle form submission for the edit action
    */
+
   // async update({ params, request }: HttpContext) {}
 
   /**
    * Delete record
    */
-  // async destroy({ params }: HttpContext) {}
+  async destroy({ params }: HttpContext) {
+    const searchQuery = await SearchQuery.findOrFail(params.id);
+    await searchQuery.delete();
+    return { message: "SearchQuery successfully deleted." };
+  }
 }
