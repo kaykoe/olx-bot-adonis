@@ -3,8 +3,8 @@ import type { HttpContext } from "@adonisjs/core/http";
 import SearchQuery from "#models/search_query";
 import {
   createSearchQueryValidator,
-  updateSearchQueryValidator,
   indexSearchQueryValidator,
+  updateSearchQueryValidator,
 } from "#validators/search_query";
 
 export default class SearchQueriesController {
@@ -12,16 +12,21 @@ export default class SearchQueriesController {
    * Display a list of resource
    */
   async index({ request }: HttpContext) {
-    const queryParams = await indexSearchQueryValidator.validate(request.qs());
+    const validatedRequest = await request.validateUsing(
+      indexSearchQueryValidator,
+    );
+    const page = validatedRequest.page ?? 1;
+    const perPage = validatedRequest.perPage ?? 10;
+
     const searchQueries = await SearchQuery.query()
-      .if(queryParams.name, (query) =>
-        query.whereILike("name", `%${queryParams.name}%`),
+      .if(validatedRequest.name, (query) =>
+        query.whereILike("name", `%${validatedRequest.name}%`),
       )
       .orderBy("id", "desc")
-      .paginate(queryParams.page, queryParams.limit);
+      .paginate(page, perPage);
 
     searchQueries.baseUrl(request.completeUrl());
-    return searchQueries.serialize();
+    return searchQueries;
   }
   /**
    * Display form to create a new record
