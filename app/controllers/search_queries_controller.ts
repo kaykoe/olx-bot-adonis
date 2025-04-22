@@ -1,7 +1,10 @@
 import type { HttpContext } from "@adonisjs/core/http";
 
 import SearchQuery from "#models/search_query";
-import { createSearchQueryValidator } from "#validators/search_query";
+import {
+  createSearchQueryValidator,
+  updateSearchQueryValidator,
+} from "#validators/search_query";
 
 export default class SearchQueriesController {
   /**
@@ -37,8 +40,14 @@ export default class SearchQueriesController {
   /**
    * Handle form submission for the edit action
    */
+  async update({ params, request }: HttpContext) {
+    const data = await request.validateUsing(updateSearchQueryValidator);
+    const searchQuery = await SearchQuery.findOrFail(params.id);
+    searchQuery.merge(data);
+    await searchQuery.save();
 
-  // async update({ params, request }: HttpContext) {}
+    return searchQuery;
+  }
 
   /**
    * Delete record
